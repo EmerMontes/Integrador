@@ -6,6 +6,11 @@
 import { useState, useEffect } from 'react';
 import { Route , Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { useDispatch} from "react-redux";
+import {removeFav} from './redux/actions'
+
+
+
 import './App.css';
 
 import Cards from './components/Cards.jsx';
@@ -15,12 +20,13 @@ import Detail from "./view/Detail.jsx";
 import About from "./view/About.jsx";
 import ErrorPage from './view/ErrorPage';
 import Form from './view/Form'
+import Favorites from './view/Favorites'
 
 const userName = 'emermontes15@gmail.com'
 const password = 'Emerson15.'
 
 function App() {
-
+ const dispatch = useDispatch();
  const navigate = useNavigate();
  const [characters,setCharacters] = useState([])
  const [memoria, setMemoria] = useState([]);
@@ -28,16 +34,18 @@ function App() {
  
  
  const onSearch = (id)=>{
+
+
     if(id>826||id<1) {
-      alert('¡No hay personajes con este ID!')
+      return alert('¡No hay personajes con este ID!');
    }
    if(memoria.includes(id)){
-       alert('Personaje ya ingresado')
+       return alert('Personaje ya ingresado');
       }else{
         axios(`https://rym2-production.up.railway.app/api/character/${id}?key=henrym-emermontes`).then(({data})=>{
         setCharacters((oldChars) => [...oldChars, data])})
       }
-    setMemoria([...memoria, id]);
+      setMemoria([...memoria, id]);
 
    }
 
@@ -45,6 +53,7 @@ function App() {
    const onClose =(id)=>{
      const charactersFiltred = characters.filter(character => character.id !== Number(id))
      setCharacters(charactersFiltred);
+     dispatch(removeFav(id))
    }
 
    function randomHandler() {
@@ -77,6 +86,7 @@ function App() {
           <Route path='/home' element={<Cards characters={characters} onClose={onClose} />}/>
           <Route path="/about" element={<About />} />
           <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="*" element={<ErrorPage/>} />
          </Routes> 
       </div>

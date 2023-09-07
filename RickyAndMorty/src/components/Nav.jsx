@@ -9,14 +9,14 @@ const Nav = (props)=>{
      <div>
        {(location.pathname !== '/') ? 
        <div>
-          <SearchBar onSearch={props.onSearch}/>
-          <button onClick={props.randomHandler}>AGG RAMDOM</button>
-       
+          <SearchBar onSearch={props.onSearch} randomHandler={props.randomHandler} />
           <div>
           <button><Link to="/about">About</Link></button> 
           <Link to="/home"><button>Home</button></Link>
+          <Link to="/favorites"><button>Favoritos</button></Link>
            <button onClick={props.logOut}>LOG OUT</button>
           </div>
+
       </div> : null}
       </div>
 
