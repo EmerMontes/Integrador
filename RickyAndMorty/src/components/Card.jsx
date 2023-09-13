@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 export default function Card(props) {
 
   const location = useLocation()
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
  //   const mapDispatchToProps=()=>{
  //    dispatch(addFav())
@@ -17,6 +17,7 @@ export default function Card(props) {
  //console.log(useSelector())
 
   //const mapStateToProps =()=>{
+
  const  myFavorites = useSelector(state => state.myFavorites)
 
 
@@ -35,6 +36,7 @@ export default function Card(props) {
          dispatch(addFav(props))
          setIsFav(true);
       }else{
+        
        dispatch(removeFav(props.id))
        setIsFav(false);
       }

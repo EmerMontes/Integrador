@@ -44,8 +44,8 @@ function App() {
       }else{
         axios(`https://rym2-production.up.railway.app/api/character/${id}?key=henrym-emermontes`).then(({data})=>{
         setCharacters((oldChars) => [...oldChars, data])})
+        setMemoria([...memoria, id]);
       }
-      setMemoria([...memoria, id]);
 
    }
 
@@ -53,6 +53,7 @@ function App() {
    const onClose =(id)=>{
      const charactersFiltred = characters.filter(character => character.id !== Number(id))
      setCharacters(charactersFiltred);
+     setMemoria([])
      dispatch(removeFav(id))
    }
 
