@@ -24,12 +24,9 @@ import Favorites from './view/Favorites'
 function App() {
  const dispatch = useDispatch();
  const navigate = useNavigate();
- const [characters,setCharacters] = useState([])
  const [memoria, setMemoria] = useState([]);
  const [access, setAccess] = useState(false);
- 
- 
- 
+ const [characters,setCharacters] = useState([]);
  
    const onSearch = (id)=>{
       if(id>826||id<1) {
@@ -40,15 +37,17 @@ function App() {
       }else{
         axios(`http://localhost:3001/rickandmorty/character/${id}`).then(({data})=>{
         setCharacters((oldChars) => [...oldChars, data])})
-        setMemoria([...memoria, id]);
       }
+      setMemoria([...memoria, id]);
+      
    }
 
    
    const onClose =(id)=>{
      const charactersFiltred = characters.filter(character => character.id !== id)
      setCharacters(charactersFiltred);
-     setMemoria([])
+     const idFiltred = memoria.filter(ids => ids !== id)
+     setMemoria(idFiltred)
      dispatch(removeFav(id))
    }
 
@@ -59,10 +58,6 @@ function App() {
    }
 
    const login=(userData)=>{
-      // if(userData.userName === userName && userData.password=== password) { 
-      //    setAccess(true)
-      //    navigate('/home')
-      // }   
       const { userName, password } = userData;
       const URL = 'http://localhost:3001/rickandmorty/login/';
         axios(URL + `?email=${userName}&password=${password}`).then(({ data }) => {
@@ -70,11 +65,6 @@ function App() {
         setAccess(data);
        access && navigate('/home');
       });
-     onSearch(1);
-     onSearch(2);
-     onSearch(3);
-     onSearch(4);
-     onSearch(5);
    }
    
    const logOut=()=>{
