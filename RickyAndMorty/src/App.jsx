@@ -1,13 +1,9 @@
-//import Card from './components/Card.jsx';
-//import SearchBar from './components/SearchBar.jsx';
-//import characters, { Rick } from './data.js';
-//import ErrorPage from "./views/ErrorPage.jsx";
-//import Login from "./views/Login.jsx";
+
 import { useState, useEffect } from 'react';
 import { Route , Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { useDispatch} from "react-redux";
-import {removeFav} from './redux/actions'
+import {removeFav, resetFav} from './redux/actions'
 
 
 
@@ -22,8 +18,8 @@ import ErrorPage from './view/ErrorPage';
 import Form from './view/Form'
 import Favorites from './view/Favorites'
 
-const userName = 'emermontes15@gmail.com'
-const password = 'Emerson15.'
+//const userName = 'emermontes15@gmail.com'
+//const password = 'Emerson15.'
 
 function App() {
  const dispatch = useDispatch();
@@ -33,25 +29,24 @@ function App() {
  const [access, setAccess] = useState(false);
  
  
- const onSearch = (id)=>{
-
-
-    if(id>826||id<1) {
-      return alert('¡No hay personajes con este ID!');
-   }
-   if(memoria.includes(id)){
+ 
+ 
+   const onSearch = (id)=>{
+      if(id>826||id<1) {
+        return alert('¡No hay personajes con este ID!');
+      }
+      if(memoria.includes(id)){
        return alert('Personaje ya ingresado');
       }else{
-        axios(`https://rym2-production.up.railway.app/api/character/${id}?key=henrym-emermontes`).then(({data})=>{
+        axios(`http://localhost:3001/rickandmorty/character/${id}`).then(({data})=>{
         setCharacters((oldChars) => [...oldChars, data])})
         setMemoria([...memoria, id]);
       }
-
    }
 
    
    const onClose =(id)=>{
-     const charactersFiltred = characters.filter(character => character.id !== Number(id))
+     const charactersFiltred = characters.filter(character => character.id !== id)
      setCharacters(charactersFiltred);
      setMemoria([])
      dispatch(removeFav(id))
@@ -64,14 +59,27 @@ function App() {
    }
 
    const login=(userData)=>{
-      if(userData.userName === userName && userData.password=== password) { 
-         setAccess(true)
-         navigate('/home')
-      }   
+      // if(userData.userName === userName && userData.password=== password) { 
+      //    setAccess(true)
+      //    navigate('/home')
+      // }   
+      const { userName, password } = userData;
+      const URL = 'http://localhost:3001/rickandmorty/login/';
+      axios(URL + `?email=${userName}&password=${password}`).then(({ data }) => {
+      const { access } = data;
+      setAccess(data);
+      access && navigate('/home');
+   });
    }
 
    const logOut=()=>{
+      if (window.confirm('¿Estás seguro de que deseas salir? Perderás todos tus personajes incluidos los favoritos.')) {
+      setCharacters([])
+      dispatch(resetFav())
       navigate('/')
+      }else{
+         navigate('/home')
+      }
    }
 
    useEffect(() => {

@@ -2,10 +2,12 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useState,useEffect} from "react";
 const Detail =()=>{
-   const {id} = useParams(); 
+
+  const {id} = useParams(); 
   const [character,setCharacters] = useState({});
+  
   useEffect(() => {
-    axios(`https://rym2-production.up.railway.app/api/character/${id}?key=henrym-emermontes`).then(({ data }) => {
+    axios(`http://localhost:3001/rickandmorty/character/${id}`).then(({ data }) => {
        if (data.name) {
           setCharacters(data);
        } else {
