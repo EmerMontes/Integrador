@@ -11,7 +11,7 @@ const Detail =()=>{
        if (data.name) {
           setCharacters(data);
        } else {
-          window.alert('No hay personajes con ese ID');
+          alert('No hay personajes con ese ID');
        }
      });
       return setCharacters({});
@@ -19,12 +19,12 @@ const Detail =()=>{
 
  return (
     <div>
-        <h2>{character?.name}</h2>
-         <h2>{character?.status}</h2>
-         <h2>{character?.species}</h2>
-         <h2>{character?.gender}</h2>
-         <h2>{character?.origin?.name}</h2>
-         <img src={character?.image} alt='' /> 
+        <h2>{character.name}</h2>
+         <h2>{character.status}</h2>
+         <h2>{character.species}</h2>
+         <h2>{character.gender}</h2>
+         <h2>{character.origin?.name}</h2>
+         <img src={character.image} alt='' /> 
     
     </div>
  )

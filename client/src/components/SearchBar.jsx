@@ -11,7 +11,7 @@ export default function SearchBar(props) {
    return (
       <div>
          <input value={id} type='number' onChange={handleChange} 
-          placeholder="ID entre 1 y 826"/>
+          min = '0' placeholder="ID entre 1 y 826"/>
          <button  onClick={()=> (props.onSearch(id), setId(''))} disabled={id.length === 0} >Agregar</button>
          <div>
          <button onClick={()=> (props.randomHandler(), setId(''))}>Agg Random</button>

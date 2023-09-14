@@ -1,11 +1,8 @@
-
 import { useState, useEffect } from 'react';
 import { Route , Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { useDispatch} from "react-redux";
 import {removeFav, resetFav} from './redux/actions'
-
-
 
 import './App.css';
 
@@ -27,44 +24,49 @@ function App() {
  const [memoria, setMemoria] = useState([]);
  const [access, setAccess] = useState(false);
  const [characters,setCharacters] = useState([]);
- 
-   const onSearch = (id)=>{
+ //console.log(memoria)
+   const onSearch = async (id)=>{
       if(id>826||id<1) {
-        return alert('¡No hay personajes con este ID!');
+         return alert('¡No hay personajes con este ID!');
       }
       if(memoria.includes(id)){
-       return alert('Personaje ya ingresado');
-      }else{
-        axios(`http://localhost:3001/rickandmorty/character/${id}`).then(({data})=>{
-        setCharacters((oldChars) => [...oldChars, data])})
+         return alert('Personaje ya ingresado');
       }
-      setMemoria([...memoria, id]);
-      
+      try {
+         const {data} = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
+         setCharacters((oldChars) => [...oldChars, data])
+      } catch (error) {
+         alert(error.message)
+      }
+      setMemoria([...memoria, id]);                    
    }
-
    
    const onClose =(id)=>{
      const charactersFiltred = characters.filter(character => character.id !== id)
      setCharacters(charactersFiltred);
-     const idFiltred = memoria.filter(ids => ids !== id)
+     const idFiltred = memoria.filter(ids => ids !== id.toString())
      setMemoria(idFiltred)
      dispatch(removeFav(id))
    }
 
    function randomHandler() {
       let randomId = (Math.random() * 826).toFixed();
-      randomId = Number(randomId);
+      //randomId = Number(randomId);
       onSearch(randomId);
    }
 
-   const login=(userData)=>{
-      const { userName, password } = userData;
-      const URL = 'http://localhost:3001/rickandmorty/login/';
-        axios(URL + `?email=${userName}&password=${password}`).then(({ data }) => {
-        const { access } = data;
-        setAccess(data);
-       access && navigate('/home');
-      });
+   const login= async(userData)=>{
+      try {
+         const URL = 'http://localhost:3001/rickandmorty/login/';
+         const { userName, password } = userData;
+         const {data} = await axios(URL + `?email=${userName}&password=${password}`)
+         const { access } = data;
+         setAccess(data);
+         access && navigate('/home');
+         
+      } catch (error) {
+         alert('Datos incorrectos')
+      }
    }
    
    const logOut=()=>{
@@ -85,8 +87,7 @@ function App() {
       !access && navigate('/');
    }, [access]);
 
-   return (
-      
+   return (      
       <div className='App'>
           <Nav logOut={logOut} onSearch={onSearch} randomHandler={randomHandler}/>
          <Routes>

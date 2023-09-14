@@ -55,6 +55,7 @@ export default function Card(props) {
          <h2>{props.species}</h2>
          <h2>{props.gender}</h2>
          <h2>{props.origin?.name}</h2>
+         <h2>{props.location?.name}</h2>
          <img src={props.image} alt='' />
        </Link>
       </div>

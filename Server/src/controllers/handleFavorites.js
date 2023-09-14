@@ -8,8 +8,7 @@ const postFav = (req,res)=>{
 
 const deleteFav = (req,res)=>{
    const {id} = req.params;
-   console.log(typeof(id))
-   myFavorites = myFavorites.filter((fav) => fav.id !== id) //el + delante lo convierte en numero
+   myFavorites = myFavorites.filter((fav) => fav.id !== Number(id)) //el + delante lo convierte en numero
    res.status(200).json(myFavorites) 
 }
 
