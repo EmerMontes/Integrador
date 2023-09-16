@@ -1,5 +1,6 @@
 import { useState } from "react";
 import validar from "../helpers/validar";
+import '../styles/form.css'
 
 const Form =({login})=>{
 
@@ -33,16 +34,20 @@ const Form =({login})=>{
   }
 
     return (
-    <div>
-        <form onSubmit={handleSubmit}>
+    <div className="login-container">
+        <form onSubmit={handleSubmit} >
             <div>
-            <label htmlFor="userName">UserName:</label>
-            <input name="userName" onChange={handleChange} value={userData.userName} type="text" placeholder="Escribe tu correo..." />
+            <label htmlFor="userName">UserName</label>
+             <br />
+            <input name="userName" onChange={handleChange} value={userData.userName} type="text" placeholder="Write your Email..." />
+            <br />
             <span>{errors.email}</span>
             </div>
             <div>
-            <label htmlFor="password">Password:</label>          
-            <input name='password' onChange={handleChange} value={userData.password} type="password" placeholder="Escribe tu contraseña..." />
+            <label htmlFor="password">Password</label>          
+            <br />
+            <input name='password' onChange={handleChange} value={userData.password} type="password" placeholder="Write your password..." />
+            <br />
             <span>{errors.password}</span>
             </div>
             <button>Submit</button>
