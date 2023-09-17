@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Route , Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import swal from 'sweetalert';
 import { useDispatch} from "react-redux";
 import {removeFav, resetFav} from './redux/actions'
 
@@ -27,10 +28,10 @@ function App() {
  //console.log(memoria)
    const onSearch = async (id)=>{
       if(id>826||id<1) {
-         return alert('¡No hay personajes con este ID!');
+         return swal('¡There is no character with that ID!','','error');
       }
       if(memoria.includes(id)){
-         return alert('Personaje ya ingresado');
+         return swal('You already added that character','','error');
       }
       try {
          const {data} = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
@@ -56,31 +57,49 @@ function App() {
    }
 
    const login= async(userData)=>{
+      const { userName, password } = userData;
+      if (userName.length===0 ||password.length===0) {
+          return swal('Empty field','','error')
+      }
       try {
          const URL = 'http://localhost:3001/rickandmorty/login/';
-         const { userName, password } = userData;
          const {data} = await axios(URL + `?email=${userName}&password=${password}`)
          const { access } = data;
          setAccess(data);
          access && navigate('/home');
-         
+         let num = 0;
+         while (num<5) {
+            num++
+            randomHandler()
+         } 
       } catch (error) {
-         alert('Datos incorrectos')
+        swal('Incorrect information','','error')
       }
+      
    }
    
    const logOut=()=>{
       if(characters.length>=1){
-      if (window.confirm('¿Estás seguro de que deseas salir? Perderás todos tus personajes incluidos los favoritos.')) {
-      setCharacters([])
-      dispatch(resetFav())
-      navigate('/')
+         swal({
+            title: "Are you sure?",
+            text: "You will lose all your characters, even your favorites!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+               setCharacters([])
+               dispatch(resetFav())
+                navigate('/')
+            }
+             else {
+               navigate('/home')
+            }
+          });
       }else{
-         navigate('/home')
+       navigate('/')
       }
-    }else{
-      navigate('/')
-    }
    }
 
    useEffect(() => {

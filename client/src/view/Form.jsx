@@ -1,6 +1,7 @@
 import { useState } from "react";
 import validar from "../helpers/validar";
 import '../styles/form.css'
+import swal from 'sweetalert'
 
 const Form =({login})=>{
 
@@ -27,14 +28,13 @@ const Form =({login})=>{
   
   const handleSubmit =(event)=>{
     event.preventDefault()
-    if (userData.userName.length===0 ||userData.password.length===0) {
-      alert('Empty field')
-    }
+    
     login(userData)
   }
 
     return (
     <div className="login-container">
+      <p className="text-pop-up-top"> Welcome to my first website</p>
         <form onSubmit={handleSubmit} >
             <div>
             <label htmlFor="userName">UserName</label>

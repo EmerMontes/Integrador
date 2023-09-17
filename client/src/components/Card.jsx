@@ -2,6 +2,7 @@ import { Link , useLocation } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import {addFav,removeFav} from '../redux/actions'
 import { useState, useEffect } from "react";
+import '../styles/card.css'
 
 export default function Card(props) {
   const location = useLocation()
@@ -28,18 +29,15 @@ export default function Card(props) {
       }
   }
    return (
-      <div key={props.id}>   
-         {(location.pathname !=='/favorites') && (<button onClick={()=> props.onClose(props.id)}>X</button>)}
-         <button onClick={handleFavorite}>{isFav ?'❤️':'🤍'}</button>         
-       <Link to={`/detail/${props.id}`}>
-         <h2>{props.name}</h2>
-         <h2>{props.status} </h2>
-         <h2>{props.species}</h2>
-         <h2>{props.gender}</h2>
-         <h2>{props.origin?.name}</h2>
-         <h2>{props.location?.name}</h2>
-         <img src={props.image} alt='' />
-       </Link>
-      </div>
+      <div className="card-container">
+       <div className="card">
+       <img src={props.image} alt={props.name} />
+       <div className="card__content">
+       <Link to={`/detail/${props.id}`}><p title="See details">{props.name}</p></Link>
+       <p class="card__description">{(location.pathname !=='/favorites') && (<button onClick={()=> props.onClose(props.id)}>X</button>)}
+       <button onClick={handleFavorite}>{isFav ?'❤️':'🤍'}</button></p>
+       </div>
+       </div>
+    </div>
    );
 }

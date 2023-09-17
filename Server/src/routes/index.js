@@ -7,7 +7,6 @@ const route = Router()
  route.get('/character/:id',getCharById)
  route.get('/login',handleLogin)
  route.post('/fav',postFav)
- 
  route.delete('/fav/:id',deleteFav)
 
  module.exports = route

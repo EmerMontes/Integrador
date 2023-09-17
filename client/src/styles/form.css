@@ -1,7 +1,19 @@
  *{
-    color: white;
     font-size: 4vh
-} 
+}
+ @keyframes text-pop-up-top{0%{transform:translateY(0);transform-origin:50% 50%;text-shadow:none}100%{transform:translateY(-50px);transform-origin:50% 50%;text-shadow:0 1px 0 #ccc,0 2px 0 #ccc,0 3px 0 #ccc,0 4px 0 #ccc,0 5px 0 #ccc,0 6px 0 #ccc,0 7px 0 #ccc,0 8px 0 #ccc,0 9px 0 #ccc,0 50px 30px rgba(0,0,0,.3)}}
+.text-pop-up-top{
+    color: #0a0a0b;
+    font-size: 10vh;
+    animation:text-pop-up-top .5s 
+    cubic-bezier(.25,.46,.45,.94) both
+}
+.text-pop-up-top:hover{
+    color: blue;
+    font-size: 12vh;
+    transition: font-size 0.4s ease-in-out;
+
+}
 .login-container{
     display: flex ;
     justify-content: center;
@@ -20,10 +32,12 @@ form{
     width: 55vh;
     border: solid;
     background-color: rgba(0, 0, 0, 0.7);
+    color: white
 }
 form:hover{
     transform: scale(1.2);
     transition: transform 0.4s ease-in-out;
+   
 }
 input{
     color: black;
@@ -33,7 +47,7 @@ input{
 }
 input:hover{
     transform: scale(1.2);
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     color: white;
     background-color: #0a0a0b;
 }
