@@ -34,7 +34,7 @@ const Form =({login})=>{
 
     return (
     <div className="login-container">
-      <p className="text-pop-up-top"> Welcome to my first website</p>
+      <p className="float"> Welcome  to my first website</p>
         <form onSubmit={handleSubmit} >
             <div>
             <label htmlFor="userName">UserName</label>

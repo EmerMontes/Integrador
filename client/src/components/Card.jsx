@@ -29,15 +29,16 @@ export default function Card(props) {
       }
   }
    return (
-      <div className="card-container">
+   
        <div className="card">
        <img src={props.image} alt={props.name} />
        <div className="card__content">
-       <Link to={`/detail/${props.id}`}><p title="See details">{props.name}</p></Link>
-       <p class="card__description">{(location.pathname !=='/favorites') && (<button onClick={()=> props.onClose(props.id)}>X</button>)}
+       <p className='pp'title="See details"><Link className="link" to={`/detail/${props.id}`}> See detail of: {<br/>}{props.name}</Link></p>
+       
+       <p className="card__description">{(location.pathname !=='/favorites') && (<button onClick={()=> props.onClose(props.id)}>X</button>)}
        <button onClick={handleFavorite}>{isFav ?'❤️':'🤍'}</button></p>
        </div>
        </div>
-    </div>
+   
    );
 }

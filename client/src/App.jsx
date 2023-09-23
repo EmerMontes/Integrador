@@ -47,7 +47,7 @@ function App() {
      setCharacters(charactersFiltred);
      const idFiltred = memoria.filter(ids => ids !== id.toString())
      setMemoria(idFiltred)
-     dispatch(removeFav(id))
+     dispatch(removeFav(id.toString()))
    }
 
    function randomHandler() {
