@@ -20,9 +20,6 @@ const sequelize = new Sequelize(
 // Debajo de este comentario puedes ejecutar la función de los modelos.
 UserModel(sequelize);
 FavoriteModel(sequelize);
-//
-
-//
 
 // Ejercicio 06
 // ¡Relaciona tus modelos aquí abajo!
@@ -32,7 +29,7 @@ User.belongsToMany(Favorite, {through: "user_favorite"});
 Favorite.belongsToMany(User, {through: "user_favorite"});
 
 module.exports = {
-   // User,
-   // Favorite,
+   User,
+   Favorite,
    conn: sequelize,
 };
