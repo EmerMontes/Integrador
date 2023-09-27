@@ -11,14 +11,23 @@ import axios from "axios";
 export const addFav = (character) => {
     const endpoint = 'http://localhost:3001/rickandmorty/fav';
     return async (dispatch) => {
-      try {
-         const {data}= await axios.post(endpoint, character)
-          return dispatch({
-             type: ADD_FAV,
-             payload: data,
-          });
+       try {
+         const {data} = await axios.post(endpoint,character)
+         //    {
+         //    id: character.id,
+         //    name: character.name,
+         //    origin: character.origin?.name,
+         //    status: character.status,
+         //    image: character.image,
+         //    species: character.species,
+         //    gender: character.gender,
+         // })
+         return dispatch({
+            type: ADD_FAV,
+            payload: data,
+         });
       } catch (error) {
-         console.log(error)
+         console.log(error.message)
       } 
     };
  };
