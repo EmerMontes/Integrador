@@ -5,7 +5,7 @@
     -moz-transition: .5s, color .10s;
     font-size: 10vh;
     margin-bottom: 5vh;
-    color: white
+    color: rgb(230, 25, 25)
 }
 .float:hover{
     box-shadow: 0 8px 8px 0 #040404,0 8px 8px 0 #000000;
