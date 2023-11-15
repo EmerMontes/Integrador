@@ -5,14 +5,13 @@
     -moz-transition: .5s, color .10s;
     font-size: 10vh;
     margin-bottom: 5vh;
-    color: rgb(230, 25, 25)
+    color: rgb(240, 240, 240)
 }
 .float:hover{
     box-shadow: 0 8px 8px 0 #040404,0 8px 8px 0 #000000;
     transform: translate(0px,5px);
     -webkit-transform: translate(0px,5px);
     -moz-transform:translate(0px,5px);
-    font-size: 12vh;
 }
 .login-container{
     display: flex ;
@@ -34,7 +33,7 @@ form{
     color: white
 }
 form:hover{
-    transform: scale(1.2);
+    transform: scale(1.1);
     transition: transform 0.4s ease-in-out;
    
 }
@@ -45,7 +44,7 @@ input{
     background-color: #fff;
 }
 input:hover{
-    transform: scale(1.2);
+    transform: scale(1.1);
     transition: transform 0.3s ease-in-out;
    
 }
